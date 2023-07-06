@@ -12,6 +12,7 @@ export class TasksPrismaRepository implements TasksRepository {
     const newTask = Object.assign(task, {
       ...data,
     });
+
     const { id, ...taskWithoutId } = newTask;
 
     const prismaTask = await this.prisma.task.create({
@@ -23,7 +24,7 @@ export class TasksPrismaRepository implements TasksRepository {
     return prismaTask;
   }
 
-  async findAll(status: string): Promise<object | TaskEnt[]> {
+  async findAll(status: string): Promise<TaskEnt[]> {
     if (status === 'done') {
       return await this.prisma.task.findMany({ where: { done: true } });
     }
@@ -32,5 +33,9 @@ export class TasksPrismaRepository implements TasksRepository {
     }
 
     return await this.prisma.task.findMany();
+  }
+
+  async findOne(id: string): Promise<TaskEnt> {
+    return await this.prisma.task.findUnique({ where: { id: +id } });
   }
 }
