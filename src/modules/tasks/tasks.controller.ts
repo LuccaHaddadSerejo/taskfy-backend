@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto';
 
@@ -9,5 +9,10 @@ export class TasksController {
   @Post('')
   create(@Body() createTaskDto: CreateTaskDto) {
     return this.tasksService.create(createTaskDto);
+  }
+
+  @Get('')
+  findAll(@Query('status') status: string | undefined) {
+    return this.tasksService.findAll(status);
   }
 }

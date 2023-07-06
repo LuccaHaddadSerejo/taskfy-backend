@@ -22,4 +22,15 @@ export class TasksPrismaRepository implements TasksRepository {
 
     return prismaTask;
   }
+
+  async findAll(status: string): Promise<object | TaskEnt[]> {
+    if (status === 'done') {
+      return await this.prisma.task.findMany({ where: { done: true } });
+    }
+    if (status === 'pending') {
+      return await this.prisma.task.findMany({ where: { done: false } });
+    }
+
+    return await this.prisma.task.findMany();
+  }
 }
