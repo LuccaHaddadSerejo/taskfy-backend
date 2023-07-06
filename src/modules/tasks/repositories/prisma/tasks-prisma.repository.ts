@@ -38,4 +38,8 @@ export class TasksPrismaRepository implements TasksRepository {
   async findOne(id: string): Promise<TaskEnt> {
     return await this.prisma.task.findUnique({ where: { id: +id } });
   }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.task.delete({ where: { id: +id } });
+  }
 }

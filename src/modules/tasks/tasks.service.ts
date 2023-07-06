@@ -22,4 +22,13 @@ export class TasksService {
     }
     return findTask;
   }
+
+  async remove(id: string) {
+    const task = await this.tasksRepository.findOne(id);
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+    await this.tasksRepository.delete(id);
+    return;
+  }
 }
