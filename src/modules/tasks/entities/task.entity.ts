@@ -3,6 +3,5 @@ export class TaskEnt {
   createdAt: Date;
   updatedAt: Date;
   title: string;
-  content: string;
   done: boolean;
 }

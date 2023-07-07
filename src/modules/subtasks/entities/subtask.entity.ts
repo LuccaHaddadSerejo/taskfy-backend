@@ -1,8 +1,8 @@
-export class TaskEnt {
+export class SubtaskEnt {
   readonly id: number;
   createdAt: Date;
   updatedAt: Date;
   title: string;
-  content: string;
   done: boolean;
+  task_id?: number;
 }
