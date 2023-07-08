@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { SubtasksRepository } from '../subtasks.repository';
-import { CreateSubtaskDto } from '../../dto';
+import { CreateSubtaskDto, UpdateSubtaskDto } from '../../dto';
 import { SubtaskEnt } from '../../entities/subtask.entity';
 import { plainToInstance } from 'class-transformer';
 
@@ -44,5 +44,19 @@ export class SubtasksPrismaRepository implements SubtasksRepository {
     });
 
     return plainToInstance(SubtaskEnt, subtask);
+  }
+
+  async update(id: string, data: UpdateSubtaskDto): Promise<SubtaskEnt> {
+    const subtask = await this.prisma.subtask.update({
+      where: { id: +id },
+      include: { task: true },
+      data: { ...data },
+    });
+
+    return plainToInstance(SubtaskEnt, subtask);
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.subtask.delete({ where: { id: +id } });
   }
 }
