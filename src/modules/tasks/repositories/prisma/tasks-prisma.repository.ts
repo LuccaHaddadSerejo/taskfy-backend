@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { TasksRepository } from '../tasks.repository';
 import { CreateTaskDto, UpdateTaskDto } from '../../dto';
-import { TaskEnt } from '../../entities/task.entity';
+import { TaskEnt, TaskEntReturn } from '../../entities/task.entity';
 import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class TasksPrismaRepository implements TasksRepository {
   constructor(private prisma: PrismaService) {}
-  async create(data: CreateTaskDto): Promise<TaskEnt> {
+
+  async create(data: CreateTaskDto): Promise<TaskEntReturn> {
     const task = new TaskEnt();
     const newTask = Object.assign(task, {
       ...data,
@@ -20,39 +21,52 @@ export class TasksPrismaRepository implements TasksRepository {
       data: {
         ...taskWithoutId,
       },
+      include: { subtasks: true },
     });
 
-    return plainToInstance(TaskEnt, prismaTask);
+    return plainToInstance(TaskEntReturn, prismaTask);
   }
 
-  async findAll(status: string): Promise<TaskEnt[]> {
+  async findAll(status: string): Promise<TaskEntReturn[]> {
     if (status === 'done') {
-      const task = await this.prisma.task.findMany({ where: { done: true } });
-      return plainToInstance(TaskEnt, task);
+      const task = await this.prisma.task.findMany({
+        where: { done: true },
+        include: { subtasks: true },
+      });
+      return plainToInstance(TaskEntReturn, task);
     }
     if (status === 'pending') {
-      const task = await this.prisma.task.findMany({ where: { done: false } });
-      return plainToInstance(TaskEnt, task);
+      const task = await this.prisma.task.findMany({
+        where: { done: false },
+        include: { subtasks: true },
+      });
+      return plainToInstance(TaskEntReturn, task);
     }
 
-    const task = await this.prisma.task.findMany();
+    const task = await this.prisma.task.findMany({
+      include: { subtasks: true },
+    });
 
-    return plainToInstance(TaskEnt, task);
+    return plainToInstance(TaskEntReturn, task);
   }
 
-  async findOne(id: string): Promise<TaskEnt> {
-    const task = await this.prisma.task.findUnique({ where: { id: +id } });
+  async findOne(id: string): Promise<TaskEntReturn> {
+    const task = await this.prisma.task.findUnique({
+      where: { id: +id },
+      include: { subtasks: true },
+    });
 
-    return plainToInstance(TaskEnt, task);
+    return plainToInstance(TaskEntReturn, task);
   }
 
-  async update(id: string, data: UpdateTaskDto): Promise<TaskEnt> {
+  async update(id: string, data: UpdateTaskDto): Promise<TaskEntReturn> {
     const task = await this.prisma.task.update({
       where: { id: +id },
+      include: { subtasks: true },
       data: { ...data },
     });
 
-    return plainToInstance(TaskEnt, task);
+    return plainToInstance(TaskEntReturn, task);
   }
 
   async delete(id: string): Promise<void> {

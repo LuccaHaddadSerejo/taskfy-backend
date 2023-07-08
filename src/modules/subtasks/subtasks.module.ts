@@ -13,4 +13,4 @@ import { SubtasksPrismaRepository } from './repositories/prisma/subtasks-prisma.
     { provide: SubtasksRepository, useClass: SubtasksPrismaRepository },
   ],
 })
-export class TasksModule {}
+export class SubtasksModule {}
