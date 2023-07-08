@@ -17,7 +17,7 @@ export class SubtasksPrismaRepository implements SubtasksRepository {
 
     const { id, ...subtaskWithoutId } = newSubtask;
 
-    const numId: number = parseInt(taskId);
+    const numId: number = +taskId;
 
     const prismaSubtask = await this.prisma.subtask.create({
       data: {
@@ -31,6 +31,15 @@ export class SubtasksPrismaRepository implements SubtasksRepository {
 
   async findAll(): Promise<SubtaskEnt[]> {
     const subtask = await this.prisma.subtask.findMany({
+      include: { task: true },
+    });
+
+    return plainToInstance(SubtaskEnt, subtask);
+  }
+
+  async findOne(id: string): Promise<SubtaskEnt> {
+    const subtask = await this.prisma.subtask.findUnique({
+      where: { id: +id },
       include: { task: true },
     });
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { SubtasksRepository } from './repositories/subtasks.repository';
 import { CreateSubtaskDto } from './dto';
 
@@ -16,5 +16,13 @@ export class SubtasksService {
 
   async findAll() {
     return this.subtasksRepository.findAll();
+  }
+
+  async findOne(id: string) {
+    const findSubtask = await this.subtasksRepository.findOne(id);
+    if (!findSubtask) {
+      throw new NotFoundException('Subask not found');
+    }
+    return findSubtask;
   }
 }

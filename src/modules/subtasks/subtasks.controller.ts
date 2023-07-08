@@ -18,4 +18,9 @@ export class SubtasksController {
   findAll() {
     return this.subtasksService.findAll();
   }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.subtasksService.findOne(id);
+  }
 }
