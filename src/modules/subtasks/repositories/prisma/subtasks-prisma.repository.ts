@@ -28,4 +28,12 @@ export class SubtasksPrismaRepository implements SubtasksRepository {
 
     return plainToInstance(SubtaskEnt, prismaSubtask);
   }
+
+  async findAll(): Promise<SubtaskEnt[]> {
+    const subtask = await this.prisma.subtask.findMany({
+      include: { task: true },
+    });
+
+    return plainToInstance(SubtaskEnt, subtask);
+  }
 }

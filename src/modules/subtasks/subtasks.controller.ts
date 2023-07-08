@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Param } from '@nestjs/common';
+import { Body, Controller, Post, Param, Get } from '@nestjs/common';
 import { SubtasksService } from './subtasks.service';
 import { CreateSubtaskDto } from './dto';
 
@@ -12,5 +12,10 @@ export class SubtasksController {
     @Param('taskId') taskId: string,
   ) {
     return this.subtasksService.create(createSubtaskDto, taskId);
+  }
+
+  @Get('')
+  findAll() {
+    return this.subtasksService.findAll();
   }
 }

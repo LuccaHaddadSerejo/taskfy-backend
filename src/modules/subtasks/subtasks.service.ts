@@ -13,4 +13,8 @@ export class SubtasksService {
     );
     return subtask;
   }
+
+  async findAll() {
+    return this.subtasksRepository.findAll();
+  }
 }
