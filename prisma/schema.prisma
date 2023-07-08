@@ -11,12 +11,24 @@ datasource db {
 }
 
 model Task {
-  id       Int  @id @default(autoincrement())
+  id        Int  @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title    String?
-  content  String?
-  done Boolean @default(false)
+  title     String
+  done      Boolean @default(false)
+  subtasks   Subtask[]
 
   @@map("tasks")
+}
+
+model Subtask {
+  id        Int  @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  done      Boolean @default(false)
+  task      Task @relation(fields: [taskId], references: [id])
+  taskId    Int
+
+  @@map("subtasks")
 }
