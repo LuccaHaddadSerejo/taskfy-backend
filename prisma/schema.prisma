@@ -27,7 +27,7 @@ model Subtask {
   updatedAt DateTime @updatedAt
   title     String
   done      Boolean @default(false)
-  task      Task @relation(fields: [taskId], references: [id])
+  task      Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId    Int
 
   @@map("subtasks")
