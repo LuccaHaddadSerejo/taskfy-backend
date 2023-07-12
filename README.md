@@ -5,11 +5,11 @@ Uma aplicação para administrar tarefas.
 ## Índice
 
 - <a href="#-instalar">Instalando e rodando o projeto</a>
+- <a href="#-requisitos">Requisitos do serviço</a>
 - <a href="#-funcionalidades">Funcionalidades</a>
 - <a href="#-bibliotecas">Bibliotecas utilizadas</a>
 - <a href="#-ferramentas">Ferramentas utilizadas</a>
 - <a href="#-endpoints">Endpoints do serviço</a>
-- <a href="#-requisitos">Requisitos do serviço</a>
 - <a href="#-exemplos">Exemplos de requisição</a>
 
 ## <h2 id=#-instalar>Instalando e rodando o projeto<h2>
@@ -24,12 +24,21 @@ $ Crie um banco de dados PostgreSQL na sua máquina
 # Crie e configure o .env:
 $ Crie um arquivo .env na raiz do projeto e configure com base no arquivo .env.example, lembre-se de usar um banco de dados existente.
 
+# Execute as migrações:
+$ npx prisma migrate dev
+
 # Execute a aplicação:
 $ npm run start:dev
 
 # Acesse pelo seu software de preferência (Postman, Insomnia):
 $ http://localhost:3000
 ```
+
+## <h2 id="-requisitos">Requisitos do serviço</h2>
+
+Esse serviço possui uma API REST para que os demais serviços consigam criar, listar, atualizar e deletar os dados do banco de dados.
+
+- O banco de dados utilizado foi **PostgreSQL**.
 
 ## <h2 id="-funcionalidades">Funcionalidades</h2>
 
@@ -73,12 +82,6 @@ $ http://localhost:3000
 | GET    | /subtasks/:id     | Lista uma subtarefa por id                       |
 | PATCH  | /subtasks/:id     | Atualiza os dados de uma subtarefa               |
 | DELETE | /subtasks/:id     | Deleta uma subtarefa                             |
-
-## <h2 id="-requisitos">Requisitos do serviço</h2>
-
-Esse serviço possui uma API REST para que os demais serviços consigam criar, listar, atualizar e deletar os dados do banco de dados.
-
-- O banco de dados utilizado foi **PostgreSQL**.
 
 ## <h2 id="-exemplos">Exemplos de requisição</h2>
 
