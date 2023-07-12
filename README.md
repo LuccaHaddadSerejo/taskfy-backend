@@ -80,7 +80,7 @@ Esse serviço possui uma API REST para que os demais serviços consigam criar, l
 
 - O banco de dados utilizado foi **PostgreSQL**.
 
-## <h2 id="-exemplos">Exemplos de requisição POST e PATCH</h2>
+## <h2 id="-exemplos">Exemplos de requisição</h2>
 
 ### **GET: /tasks**
 
