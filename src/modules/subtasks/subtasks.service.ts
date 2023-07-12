@@ -21,7 +21,7 @@ export class SubtasksService {
   async findOne(id: string) {
     const findSubtask = await this.subtasksRepository.findOne(id);
     if (!findSubtask) {
-      throw new NotFoundException('Subask not found');
+      throw new NotFoundException('Subtask not found');
     }
     return findSubtask;
   }
@@ -29,7 +29,7 @@ export class SubtasksService {
   async update(id: string, data: UpdateSubtaskDto) {
     const subtask = await this.subtasksRepository.findOne(id);
     if (!subtask) {
-      throw new NotFoundException('Task not found');
+      throw new NotFoundException('Subtask not found');
     }
     return await this.subtasksRepository.update(id, data);
   }
