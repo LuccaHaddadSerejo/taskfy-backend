@@ -18,10 +18,10 @@ Uma aplicação para administrar tarefas.
 # Instale as dependências:
 $ npm install
 
-# Crie o DB local.
+# Crie o db local:
 $ Crie um banco de dados PostgreSQL na sua máquina
 
-# Crie e configure o .env
+# Crie e configure o .env:
 $ Crie um arquivo .env na raiz do projeto e configure com base no arquivo .env.example, lembre-se de usar um banco de dados existente.
 
 # Execute a aplicação:
